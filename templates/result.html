@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Prediction Result</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
+body{
+
+background:linear-gradient(rgba(8,27,41,.75),rgba(8,27,41,.75)),
+url("https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1600");
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+height:100vh;
+
+}
+
+.card{
+
+width:500px;
+background:rgba(255,255,255,.15);
+
+backdrop-filter:blur(15px);
+
+padding:40px;
+
+border-radius:20px;
+
+text-align:center;
+
+box-shadow:0 8px 25px rgba(0,0,0,.4);
+
+}
+
+h1{
+
+color:white;
+
+margin-bottom:20px;
+
+}
+
+.result{
+
+font-size:30px;
+
+font-weight:bold;
+
+margin:25px 0;
+
+}
+
+.high{
+
+color:#ff4d4d;
+
+}
+
+.low{
+
+color:#00ff99;
+
+}
+
+a{
+
+display:inline-block;
+
+margin-top:20px;
+
+padding:14px 30px;
+
+background:#0099ff;
+
+color:white;
+
+text-decoration:none;
+
+border-radius:8px;
+
+font-size:18px;
+
+transition:.3s;
+
+}
+
+a:hover{
+
+background:#0077cc;
+
+}
+
+.icon{
+
+font-size:60px;
+
+margin-bottom:20px;
+
+color:white;
+
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="icon">
+<i class="fas fa-water"></i>
+</div>
+
+<h1>Flood Prediction Result</h1>
+
+<div class="result {{ color }}">
+{{ result }}
+</div>
+
+<a href="/">
+<i class="fas fa-arrow-left"></i>
+Predict Again
+</a>
+
+</div>
+
+</body>
+</html>

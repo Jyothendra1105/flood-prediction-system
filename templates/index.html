@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Prediction System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div style="text-align:center;font-size:60px;color:white;">
+    🌊
+    </div>
+
+    <h1><i class="fas fa-water"></i> Flood Prediction System</h1>
+
+    <p class="subtitle">
+        AI Powered Flood Risk Prediction using XGBoost 
+    </p>
+
+<form action="/predict" method="POST">
+
+<input type="number" name="MonsoonIntensity" placeholder="🌧 Monsoon Intensity" required>
+
+<input type="number" name="TopographyDrainage" placeholder="🗺 Topography Drainage" required>
+
+<input type="number" name="RiverManagement" placeholder="🌊 River Management" required>
+
+<input type="number" name="Deforestation" placeholder="🌳 Deforestation" required>
+
+<input type="number" name="Urbanization" placeholder="🏙 Urbanization" required>
+
+<input type="number" name="ClimateChange" placeholder="🌍 Climate Change" required>
+
+<input type="number" name="DamsQuality" placeholder="🏞 Dams Quality" required>
+
+<input type="number" name="Siltation" placeholder="💧 Siltation" required>
+
+<input type="number" name="AgriculturalPractices" placeholder="🌾 Agricultural Practices" required>
+
+<input type="number" name="Encroachments" placeholder="🚧 Encroachments" required>
+
+<input type="number" name="IneffectiveDisasterPreparedness" placeholder="🚑 Disaster Preparedness" required>
+
+<input type="number" name="DrainageSystems" placeholder="🚰 Drainage Systems" required>
+
+<input type="number" name="CoastalVulnerability" placeholder="🌊 Coastal Vulnerability" required>
+
+<input type="number" name="Landslides" placeholder="⛰ Landslides" required>
+
+<input type="number" name="Watersheds" placeholder="🏞 Watersheds" required>
+
+<input type="number" name="DeterioratingInfrastructure" placeholder="🏗 Infrastructure" required>
+
+<input type="number" name="PopulationScore" placeholder="👨‍👩‍👧 Population Score" required>
+
+<input type="number" name="WetlandLoss" placeholder="🌿 Wetland Loss" required>
+
+<input type="number" name="InadequatePlanning" placeholder="📋 Inadequate Planning" required>
+
+<input type="number" name="PoliticalFactors" placeholder="🏛 Political Factors" required>
+
+<button type="submit">
+<i class="fas fa-search"></i> Predict Flood
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
