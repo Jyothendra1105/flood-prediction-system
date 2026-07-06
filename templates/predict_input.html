@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Flood Risk - Rising Waters</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="orb orb-primary"></div>
+    <div class="orb orb-accent"></div>
+
+    <div class="app-container">
+        <header style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+            <a href="/" style="color: var(--primary); text-decoration: none; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px;">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <h1 class="main-title" style="font-size: 2.5rem;">Flood Risk Predictor</h1>
+            <p class="subtitle" style="margin-bottom: 20px;">Enter environmental and weather indicators to assess regional susceptibility.</p>
+        </header>
+
+        <main class="glass-card" style="margin-bottom: 50px;">
+            <!-- Interactive Presets Panel -->
+            <div class="presets-section">
+                <h3 class="presets-title">
+                    <i class="fas fa-sliders" style="color: var(--primary);"></i> Quick Fill Scenario Presets
+                </h3>
+                <div class="preset-btns-container">
+                    <button type="button" class="btn-preset" id="btn-preset-scenario1" onclick="applyPreset('scenario1')">
+                        <i class="fas fa-bullhorn" style="color: var(--high-risk);"></i> Scenario 1: Early Warning (High Risk)
+                    </button>
+                    <button type="button" class="btn-preset" id="btn-preset-scenario2" onclick="applyPreset('scenario2')">
+                        <i class="fas fa-umbrella" style="color: var(--high-risk);"></i> Scenario 2: Active Monsoon (High Risk)
+                    </button>
+                    <button type="button" class="btn-preset" id="btn-preset-scenario3" onclick="applyPreset('scenario3')">
+                        <i class="fas fa-sun" style="color: var(--low-risk);"></i> Scenario 3: Safe / Normal Conditions
+                    </button>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form action="/predict" method="POST" class="features-form" id="flood-prediction-form">
+                
+                <!-- Group 1: Meteorological & Atmospheric -->
+                <div class="form-group-section">
+                    <h3 class="section-legend">
+                        <i class="fas fa-cloud-showers-heavy"></i> 1. Meteorological & Weather Factors
+                    </h3>
+                    <div class="form-grid">
+                        <div class="input-wrapper">
+                            <label for="input-MonsoonIntensity">Monsoon Intensity (0-16)</label>
+                            <input type="number" name="MonsoonIntensity" id="input-MonsoonIntensity" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-ClimateChange">Climate Change Score (0-16)</label>
+                            <input type="number" name="ClimateChange" id="input-input-ClimateChange" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-Siltation">River Siltation (0-16)</label>
+                            <input type="number" name="Siltation" id="input-Siltation" min="0" max="20" required placeholder="e.g. 4">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-Landslides">Landslide Susceptibility (0-16)</label>
+                            <input type="number" name="Landslides" id="input-Landslides" min="0" max="20" required placeholder="e.g. 3">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-Watersheds">Watersheds Condition (0-16)</label>
+                            <input type="number" name="Watersheds" id="input-Watersheds" min="0" max="20" required placeholder="e.g. 4">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group 2: Topographic & Infrastructure -->
+                <div class="form-group-section">
+                    <h3 class="section-legend">
+                        <i class="fas fa-bridge"></i> 2. Hydraulic & Infrastructure Factors
+                    </h3>
+                    <div class="form-grid">
+                        <div class="input-wrapper">
+                            <label for="input-TopographyDrainage">Topography Drainage (0-18)</label>
+                            <input type="number" name="TopographyDrainage" id="input-TopographyDrainage" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-RiverManagement">River Management Effectiveness (0-16)</label>
+                            <input type="number" name="RiverManagement" id="input-RiverManagement" min="0" max="20" required placeholder="e.g. 6">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-DamsQuality">Dams Integrity Quality (0-16)</label>
+                            <input type="number" name="DamsQuality" id="input-DamsQuality" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-DrainageSystems">Drainage Systems Quality (0-16)</label>
+                            <input type="number" name="DrainageSystems" id="input-DrainageSystems" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-DeterioratingInfrastructure">Infrastructure Ageing Score (0-16)</label>
+                            <input type="number" name="DeterioratingInfrastructure" id="input-DeterioratingInfrastructure" min="0" max="20" required placeholder="e.g. 4">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group 3: Land Use & Demographics -->
+                <div class="form-group-section">
+                    <h3 class="section-legend">
+                        <i class="fas fa-tree-city"></i> 3. Land Use & Demographics
+                    </h3>
+                    <div class="form-grid">
+                        <div class="input-wrapper">
+                            <label for="input-Deforestation">Deforestation Score (0-16)</label>
+                            <input type="number" name="Deforestation" id="input-Deforestation" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-Urbanization">Urbanization Level (0-16)</label>
+                            <input type="number" name="Urbanization" id="input-Urbanization" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-CoastalVulnerability">Coastal Vulnerability (0-16)</label>
+                            <input type="number" name="CoastalVulnerability" id="input-CoastalVulnerability" min="0" max="20" required placeholder="e.g. 4">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-WetlandLoss">Wetland Loss Score (0-16)</label>
+                            <input type="number" name="WetlandLoss" id="input-WetlandLoss" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-PopulationScore">Population Density Score (0-16)</label>
+                            <input type="number" name="PopulationScore" id="input-PopulationScore" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group 4: Policy & Preparedness -->
+                <div class="form-group-section">
+                    <h3 class="section-legend">
+                        <i class="fas fa-clipboard-list"></i> 4. Policy, Preparedness & Governance
+                    </h3>
+                    <div class="form-grid">
+                        <div class="input-wrapper">
+                            <label for="input-AgriculturalPractices">Agricultural Practices (0-16)</label>
+                            <input type="number" name="AgriculturalPractices" id="input-AgriculturalPractices" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-Encroachments">Riverbank Encroachments (0-16)</label>
+                            <input type="number" name="Encroachments" id="input-Encroachments" min="0" max="20" required placeholder="e.g. 4">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-IneffectiveDisasterPreparedness">Disaster Unpreparedness (0-16)</label>
+                            <input type="number" name="IneffectiveDisasterPreparedness" id="input-IneffectiveDisasterPreparedness" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-InadequatePlanning">Inadequate Local Planning (0-16)</label>
+                            <input type="number" name="InadequatePlanning" id="input-InadequatePlanning" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input-PoliticalFactors">Political Stability Factors (0-16)</label>
+                            <input type="number" name="PoliticalFactors" id="input-PoliticalFactors" min="0" max="20" required placeholder="e.g. 5">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 20px; justify-content: center; width: 100%; margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary" style="width: 250px;" id="btn-submit-predict">
+                        <i class="fas fa-magnifying-glass"></i> Evaluate Flood Risk
+                    </button>
+                    <button type="reset" class="btn btn-outline" style="width: 150px;">
+                        <i class="fas fa-rotate-left"></i> Reset Form
+                    </button>
+                </div>
+
+            </form>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Rising Waters Flood Prediction System. Powered by Python, XGBoost, and Flask.</p>
+    </footer>
+
+    <!-- Presets Javascript -->
+    <script>
+        const presets = {
+            scenario1: {
+                MonsoonIntensity: 9, TopographyDrainage: 4, RiverManagement: 7, Deforestation: 6,
+                Urbanization: 8, ClimateChange: 8, DamsQuality: 3, Siltation: 5,
+                AgriculturalPractices: 5, Encroachments: 6, IneffectiveDisasterPreparedness: 8,
+                DrainageSystems: 4, CoastalVulnerability: 6, Landslides: 7, Watersheds: 4,
+                DeterioratingInfrastructure: 7, PopulationScore: 8, WetlandLoss: 6,
+                InadequatePlanning: 7, PoliticalFactors: 5
+            },
+            scenario2: {
+                MonsoonIntensity: 8, TopographyDrainage: 3, RiverManagement: 8, Deforestation: 7,
+                Urbanization: 9, ClimateChange: 9, DamsQuality: 2, Siltation: 6,
+                AgriculturalPractices: 6, Encroachments: 7, IneffectiveDisasterPreparedness: 9,
+                DrainageSystems: 3, CoastalVulnerability: 8, Landslides: 8, Watersheds: 3,
+                DeterioratingInfrastructure: 8, PopulationScore: 9, WetlandLoss: 8,
+                InadequatePlanning: 8, PoliticalFactors: 6
+            },
+            scenario3: {
+                MonsoonIntensity: 3, TopographyDrainage: 4, RiverManagement: 3, Deforestation: 2,
+                Urbanization: 3, ClimateChange: 3, DamsQuality: 7, Siltation: 2,
+                AgriculturalPractices: 3, Encroachments: 2, IneffectiveDisasterPreparedness: 3,
+                DrainageSystems: 8, CoastalVulnerability: 3, Landslides: 2, Watersheds: 4,
+                DeterioratingInfrastructure: 3, PopulationScore: 3, WetlandLoss: 2,
+                InadequatePlanning: 2, PoliticalFactors: 3
+            }
+        };
+
+        function applyPreset(name) {
+            const data = presets[name];
+            if (!data) return;
+            
+            for (const key in data) {
+                // Find element by name and set value
+                const element = document.getElementsByName(key)[0];
+                if (element) {
+                    element.value = data[key];
+                }
+            }
+            
+            // Highlight fields momentarily to show they loaded
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.style.borderColor = 'var(--primary)';
+                setTimeout(() => {
+                    input.style.borderColor = 'var(--glass-border)';
+                }, 800);
+            });
+        }
+    </script>
+</body>
+</html>

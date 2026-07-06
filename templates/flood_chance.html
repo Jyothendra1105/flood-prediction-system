@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Risk Result - Warning</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="orb orb-primary" style="background: var(--high-risk); opacity: 0.1;"></div>
+    <div class="orb orb-accent" style="background: #e63946; opacity: 0.1;"></div>
+
+    <div class="app-container">
+        <header style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+            <h1 class="main-title" style="background: linear-gradient(135deg, #ffffff, var(--high-risk)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Assessment Result</h1>
+        </header>
+
+        <main class="glass-card" style="margin-bottom: 50px;">
+            <div class="result-container">
+                <span class="result-badge high-risk-badge">
+                    <i class="fas fa-circle-exclamation"></i> Critical Risk Warning
+                </span>
+                
+                <!-- Glowing risk visual orb -->
+                <div class="result-circle high">
+                    <span class="result-value">{{ prob }}%</span>
+                    <span class="result-label">Flood Probability</span>
+                </div>
+
+                <h2 class="result-title" style="color: var(--high-risk); font-weight: 800;">🌊 High Flood Probability Predicted</h2>
+                <p class="result-desc">
+                    Based on the entered environmental parameters, our optimized XGBoost classification model predicts a 
+                    <strong>High Susceptibility of Flooding</strong> for this region. Extreme meteorological indicators combined with 
+                    vulnerabilities in infrastructure and drainage warrant immediate precautionary action.
+                </p>
+
+                <!-- Evacuation and coordinator guidelines -->
+                <div class="recs-card">
+                    <h3 class="recs-title" style="color: var(--high-risk);">
+                        <i class="fas fa-triangle-exclamation"></i> Emergency Evacuation & Resource Actions
+                    </h3>
+                    <ul class="recs-list high-recs">
+                        <li><strong>Issue Evacuation Advisories:</strong> Authorities should immediately broadcast alerts and mobilize evacuation procedures for low-lying and flood-prone residential districts.</li>
+                        <li><strong>Activate Disaster Response Teams:</strong> Alert civil defense, emergency services, and local relief operations to set up rescue shelters.</li>
+                        <li><strong>Deploy Emergency Flood Barriers:</strong> Reinforce river banks, place sandbags, and check integrity levels of dams and drainage gates.</li>
+                        <li><strong>Resource Allocation:</strong> Prioritize shipping clean water, food, medicine, and backup power generators to the designated district.</li>
+                        <li><strong>Ongoing Hydrometeorological Monitoring:</strong> Continuously log river gauges, drainage levels, and upstream runoff parameters.</li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="/predict_input" class="btn btn-primary" id="btn-predict-again" style="background: var(--high-risk-grad); box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);">
+                        <i class="fas fa-rotate-left"></i> Run Another Assessment
+                    </a>
+                    <a href="/" class="btn btn-outline">
+                        <i class="fas fa-house"></i> Home Page
+                    </a>
+                    <a href="/validation" class="btn btn-outline" style="border-color: rgba(255, 77, 109, 0.3);">
+                        <i class="fas fa-chart-line"></i> View Model Metrics
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Rising Waters Flood Prediction System. Powered by Python, XGBoost, and Flask.</p>
+    </footer>
+
+</body>
+</html>

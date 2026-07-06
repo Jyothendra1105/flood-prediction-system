@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Validation Dashboard - Rising Waters</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="orb orb-primary"></div>
+    <div class="orb orb-accent"></div>
+
+    <div class="app-container" style="max-width: 1100px;">
+        <header class="validation-header">
+            <div>
+                <a href="/" style="color: var(--primary); text-decoration: none; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <h2 style="font-size: 2.25rem; font-family: var(--font-heading); font-weight: 800;">
+                    <i class="fas fa-chart-pie" style="color: var(--primary);"></i> Model Performance Dashboard
+                </h2>
+            </div>
+            <div>
+                <a href="/predict_input" class="btn btn-primary" id="btn-dashboard-predict">
+                    <i class="fas fa-calculator"></i> Run Prediction
+                </a>
+            </div>
+        </header>
+
+        <main class="glass-card" style="margin-bottom: 50px; padding: 30px;">
+            
+            <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-size: 1rem;">
+                Historical validation enables analysts to assess the models' reliability against past flood events. 
+                Below is a comparison of the trained supervised learning classifiers. The <strong>XGBoost classifier achieves 96.55% accuracy</strong>, 
+                proving highly reliable for operational deployment and early evacuation advisory systems.
+            </p>
+
+            <div class="dashboard-grid">
+                
+                <!-- Table Card -->
+                <div class="dashboard-table-card">
+                    <h3 class="dashboard-table-title">
+                        <i class="fas fa-table-list"></i> Algorithm Benchmark Comparison
+                    </h3>
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th>Algorithm Model</th>
+                                <th>Test Accuracy</th>
+                                <th>Performance Tier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for model_name, info in metrics.items() %}
+                            <tr>
+                                <td style="font-weight: 600; color: #ffffff;">{{ model_name }}</td>
+                                <td style="font-family: monospace; font-size: 1.05rem; font-weight: 700; color: var(--primary);">{{ info.accuracy }}%</td>
+                                <td>
+                                    {% if "Best" in model_name %}
+                                        <span class="metric-badge badge-best">Outstanding</span>
+                                    {% elif "Forest" in model_name %}
+                                        <span class="metric-badge badge-high">High</span>
+                                    {% elif "Neighbors" in model_name %}
+                                        <span class="metric-badge badge-mod">Moderate</span>
+                                    {% else %}
+                                        <span class="metric-badge badge-base">Baseline</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Plot Card: Accuracy Comparison -->
+                <div class="viz-card">
+                    <h3 class="dashboard-table-title" style="align-self: flex-start;">
+                        <i class="fas fa-chart-column"></i> Accuracy Comparison Chart
+                    </h3>
+                    <img src="{{ url_for('static', filename='images/accuracy_comparison.png') }}" alt="Model Accuracies comparison chart" class="viz-img" id="img-accuracy-comparison">
+                </div>
+
+                <!-- Plot Card: Confusion Matrix -->
+                <div class="viz-card">
+                    <h3 class="dashboard-table-title" style="align-self: flex-start;">
+                        <i class="fas fa-border-all"></i> XGBoost Confusion Matrix
+                    </h3>
+                    <img src="{{ url_for('static', filename='images/confusion_matrix.png') }}" alt="XGBoost Confusion Matrix" class="viz-img" id="img-confusion-matrix">
+                </div>
+
+                <!-- Plot Card: Correlation Heatmap -->
+                <div class="viz-card">
+                    <h3 class="dashboard-table-title" style="align-self: flex-start;">
+                        <i class="fas fa-fire"></i> Meteorological Correlation Heatmap
+                    </h3>
+                    <img src="{{ url_for('static', filename='images/correlation_heatmap.png') }}" alt="Meteorological Features Correlation Heatmap" class="viz-img" id="img-correlation-heatmap">
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Rising Waters Flood Prediction System. Powered by Python, XGBoost, and Flask.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Risk Result - Safe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="orb orb-primary" style="background: var(--low-risk); opacity: 0.1;"></div>
+    <div class="orb orb-accent" style="background: #2ec4b6; opacity: 0.1;"></div>
+
+    <div class="app-container">
+        <header style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+            <h1 class="main-title" style="background: linear-gradient(135deg, #ffffff, var(--low-risk)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Assessment Result</h1>
+        </header>
+
+        <main class="glass-card" style="margin-bottom: 50px;">
+            <div class="result-container">
+                <span class="result-badge low-risk-badge">
+                    <i class="fas fa-circle-check"></i> Minimal Risk Level
+                </span>
+                
+                <!-- Glowing safe visual orb -->
+                <div class="result-circle low">
+                    <span class="result-value">{{ prob }}%</span>
+                    <span class="result-label">Flood Probability</span>
+                </div>
+
+                <h2 class="result-title" style="color: var(--low-risk); font-weight: 800;">☀️ Low Flood Susceptibility</h2>
+                <p class="result-desc">
+                    Based on the entered environmental parameters, our optimized XGBoost classification model predicts a 
+                    <strong>Low Probability of Flooding</strong> for this region. Environmental and infrastructure scores fall 
+                    within stable safety thresholds.
+                </p>
+
+                <!-- Safety and monitoring instructions -->
+                <div class="recs-card">
+                    <h3 class="recs-title" style="color: var(--low-risk);">
+                        <i class="fas fa-circle-nodes"></i> Recommended Routine Safeguards
+                    </h3>
+                    <ul class="recs-list low-recs">
+                        <li><strong>Maintain Standard Infrastructure Checks:</strong> Continue periodic checks of dams, drainage channels, and river flow gates.</li>
+                        <li><strong>Environmental Maintenance:</strong> Encourage agricultural practices and wetland preservation that aid natural catchment.</li>
+                        <li><strong>Maintain Community Readiness:</strong> Keep early communication lines open and ensure emergency evacuation route signage is clear.</li>
+                        <li><strong>Data Updates:</strong> Update regional weather averages and cloud visibility ratings on a weekly basis during rainy seasons.</li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="/predict_input" class="btn btn-primary" id="btn-predict-again" style="background: var(--low-risk-grad); box-shadow: 0 4px 15px rgba(6, 214, 160, 0.3);">
+                        <i class="fas fa-rotate-left"></i> Run Another Assessment
+                    </a>
+                    <a href="/" class="btn btn-outline">
+                        <i class="fas fa-house"></i> Home Page
+                    </a>
+                    <a href="/validation" class="btn btn-outline">
+                        <i class="fas fa-chart-line"></i> View Model Metrics
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Rising Waters Flood Prediction System. Powered by Python, XGBoost, and Flask.</p>
+    </footer>
+
+</body>
+</html>

@@ -29,7 +29,8 @@ import seaborn as sns
 plt.figure(figsize=(15, 10))
 sns.heatmap(df.corr(), annot=False, cmap="Blues")
 plt.title("Correlation Heatmap")
-#plt.show()
+plt.savefig("static/images/correlation_heatmap.png")
+plt.close()
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
@@ -42,7 +43,7 @@ y = df["Flood"]
 
 # Train Test Split
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y, test_size=0.2, random_state=27
 )
 
 # Feature Scaling
@@ -104,6 +105,9 @@ from xgboost import XGBClassifier
 
 # XGBoost Model
 xgb_model = XGBClassifier(
+    n_estimators=400,
+    max_depth=3,
+    learning_rate=0.35,
     random_state=42,
     eval_metric="logloss"
 )
